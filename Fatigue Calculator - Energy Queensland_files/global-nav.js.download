@@ -1,0 +1,82 @@
+    $(function() {
+
+        // main nav submenu
+        var $navDropDown = $('.drop-down');
+        var $activeSectionCloned = $navDropDown.find('.active').clone();
+
+        // login submenu toggle-button
+        var $loginSubmenuToggle = $('#login-submenu-toggle');
+        var $loginSubmenu = $('#login-submenu');
+
+        // create active option button-like for submenu
+        $activeSectionCloned.removeClass('menu-option').addClass('toggle-button');
+        $activeSectionCloned.find('a').append('<span class="ergonicon ergonicon-chevron"></span>');
+        $activeSectionCloned.on('click', function(e) {
+            e.preventDefault();
+                if($navDropDown.hasClass('submenu-displayed')) {
+                    $navDropDown.removeClass('submenu-displayed');
+                }
+                else {
+                    $navDropDown.addClass('submenu-displayed');
+                    $loginSubmenu.addClass('hidden'); // avoid 2 submenus opened
+                }
+            return false;
+        })
+
+        $navDropDown.prepend( $activeSectionCloned );
+
+        // handle login-submenu
+        $loginSubmenuToggle.on('click', function(e) {
+            e.preventDefault();
+
+            if( $loginSubmenu.hasClass('hidden') ) {
+                $loginSubmenu.removeClass('hidden');
+                $navDropDown.removeClass('submenu-displayed'); // avoid 2 submenus opened
+            }
+            else {
+                $loginSubmenu.addClass('hidden');
+            }
+        })
+        
+        
+          function setupSmallScreenTopNav() {
+            $(".navbar-gateway").append("<div class='search-shade'></div>");
+        
+            $(".search-shade").on('click', function(event) {
+              $(".nav-search").trigger('click');
+            });
+        
+            $(".nav-search a").on('click', function(event) {
+                console.log("clicked");
+              event.preventDefault();
+              
+              var $searchForm = $(".nav-search-form").toggleClass("collapsed");
+              if (!($searchForm.hasClass("collapsed"))) {
+                $searchForm.find(".search-input").focus();
+                $(".search-shade").addClass("active");
+                $(this).find(".ergonicon-search").removeClass("ergonicon-search").addClass("ergonicon-remove");
+                $(this).addClass('search-active');
+              }
+              else {
+                $searchForm.find(".search-input").blur();
+                $(".search-shade").removeClass("active");
+                $(this).find(".ergonicon-remove").removeClass("ergonicon-remove").addClass("ergonicon-search");
+                $(this).removeClass('search-active');
+              }
+            });
+        
+            // Fix for iOS <= 7 black nav bar where by default, :hover is activated on first tap, then click on 2nd tap.
+            var iOSDevice = navigator.userAgent.match('iPad|iPhone|iPod');
+            if (iOSDevice && iOSDevice.length > 0) {
+              var version = navigator.userAgent.split('Version/').pop();
+              version = parseFloat(version.substr(0,3));
+              if (version < 8) {
+                $(".navbar-gateway a").bind("touchend", function(e) {
+                  window.location = $(this).attr("href");
+                });
+              }
+            }
+          }
+
+    setupSmallScreenTopNav();
+    });

@@ -1,0 +1,131 @@
+/**  !!! search-dropdown.js !!!
+   This JavaScript file is used to generate search results dynamically upon user input.
+   Search results are returned using the Funnelback API from the following search collections:
+     (1) 'ergon-com-au' (main website search), and
+     (2) 'ergon-faqs' (Ergon FAQs)
+  
+   Results are displayed in a window that appears underneath the search input box
+ **/
+
+function loadSearchResults(searchTerm, theDiv, gscope) {
+  var baseDomain = $("#search").data("search-domain");
+  /** Loads search results dynamically when a user types within a search input field. 
+      The user is presented with the top 3 results matching their query from the Ergon FAQ and ergon-com-au Funnelback search collections. 
+      The search results are displayed in a drop-down box underneath the search input field.
+      The function can be called from either:
+        (1) The main search page, 
+        (2) The search input field at the top-right of the Ergon website template, or 
+        (3) The search input field at the bottom of the Ergon website template (under the heading 'Find Answers')  **/
+
+  $(".ui-autocomplete").hide(); // Hide the autocomplete feature developed and implemented by Funnelback - no longer required
+
+  // Only perform the search if the user's search phrase is longer than 3 characters. Otherwise, the search is too general
+  if (searchTerm.length > 3) {
+    searchTerm += "*"; // Add a wildcard at the end of the search phrase (eg. search term 'sola' could return search results for 'solar')
+    var numberResults = 0;
+    var searchInput = $(theDiv).parent().parent().parent().parent().find(".search-input");
+    if (searchTerm.replace("*", "") != searchInput.val()) {
+      return; // Exit function NOW if user has since typed additional characters. This accounts for quick data entry via keyboard, and avoids synchronous JS functions.
+    }
+    $.getJSON(baseDomain + '/s/search.json?collection=ergon-faqs&num_ranks=3&query=' + searchTerm + ((gscope) ? '&gscope1=' + gscope : ''), function (data) {
+      var outputHtmlFAQ = '<div class="faq-search-results-title">SUGGESTED FAQs</div><ul>';
+      if (data.response.resultPacket === null) {
+        return;
+      };
+      numberResults = numberResults + data.response.resultPacket.resultsSummary.fullyMatching;
+      if (data.response.resultPacket.resultsSummary.totalMatching != "0") {
+        $.each(data.response.resultPacket.results, function (key, val) {
+          if (val.metaData.y != "372139" && val.metaData.y != "372122") {
+            var link_text = val.title.replace("- Ergon Energy", "").trim();
+            if(gscope === "ergonNetwork") {
+                outputHtmlFAQ += '<li><a href="https://www.ergon.com.au/network/help-and-support/about-us/faqs#' + val.metaData.y + '" data-gtm-search-suggestion-type="FAQ" data-gtm-search-suggestion="' + link_text +'">' + link_text + '</a></li>';
+            } else if(gscope === "ergonRetail") {
+                outputHtmlFAQ += '<li><a href="https://www.ergon.com.au/retail/help-and-support/faqs#' + val.metaData.y + '" data-gtm-search-suggestion-type="FAQ" data-gtm-search-suggestion="' + link_text +'">' + link_text + '</a></li>';
+            }
+          }
+        });
+        outputHtmlFAQ += "</ul>";
+      } else {
+        outputHtmlFAQ = '';
+      }
+      if (searchTerm.replace("*", "") != searchInput.val()) {
+        // Exit function NOW if user has since typed additional characters. This accounts for quick data entry via keyboard, and avoids synchronous JS functions.
+        // $(theDiv).html("<div>" + outputHtmlFAQ + "</div><div class='view-all-results'><div data-search-term='" + searchTerm + "' onClick='viewAllResults(this)' >View all results</div></div>");
+        return;
+      }
+      $.getJSON(baseDomain + '/s/search.json?collection=ergon-com-au&num_ranks=3&query=' + searchTerm + ((gscope) ? '&gscope1=' + gscope : ''), function (data) {
+        var outputHtmlWeb = '<div class="faq-search-results-title">SUGGESTED WEBPAGES</div><ul>';
+        if (data.response.resultPacket === null) {
+          return;
+        };
+        numberResults = data.response.resultPacket.resultsSummary.fullyMatching;
+        if (data.response.resultPacket.resultsSummary.totalMatching != "0") {
+          $.each(data.response.resultPacket.results, function (key, val) {
+            if (val.displayUrl.indexOf("/designs/pages/") == "-1") {
+              outputHtmlWeb += '<li><a href="' + val.displayUrl + '" data-gtm-search-suggestion-type="webpages" data-gtm-search-suggestion="'+ val.displayUrl.replace("https://www.ergon.com.au", "") +'">' + val.title + '</a></li>';
+            }
+          });
+          outputHtmlWeb += "</ul>";
+        } else {
+          outputHtmlWeb = '';
+        }
+        if (numberResults > 0) {
+          $(theDiv).html("<div>" + outputHtmlFAQ + outputHtmlWeb + "</div><div class='view-all-results'><div data-search-term='" + searchTerm + "' onClick='viewAllResults(this, \"" + gscope + "\")' >View all results</div></div>");
+        }
+      });
+    });
+  } else {
+    $(theDiv).html("");
+  }
+}
+
+function viewAllResults(theDiv, gscope) {
+
+  /** Called when 'View all' button is clicked within dynamic search results drop-down.
+      If the function is called from the Search page itself, then perform the search for that search phrase.
+      Otherwise, redirect the browser to the search results page for that search phrase.
+      The search wildcard (*) character, used to generate the search suggestions, is removed **/
+
+  if (location.href.indexOf("/search") != "-1") {
+    performSearch($(theDiv).attr("data-search-term").replace("*", ""), null, gscope);
+  } else {
+    window.location = ($('form.search').data('searchPage') ? $('form.search').data('searchPage') + '#' :
+        "https://www.ergon.com.au/designs/pages/search#") + $(theDiv).attr("data-search-term").replace("*", "") + '.111111' + ((gscope) ? '?gscope=' + gscope : '');
+  }
+}
+
+
+$(document).ready(function () {
+
+  var gscope = $('input[name="gscope1"]').val() || getScope();
+
+  /** Event handlers  **/
+  $(".search-input").keyup(function () {
+    // Display search results while typing  
+    if (event.keyCode != 13) {
+      loadSearchResults($(this).val(), $(this).parent().parent().parent().parent().find(".search-dropdown"), gscope);
+      $(this).parent().parent().parent().parent().find(".search-dropdown").slideDown();
+    }
+  });
+  $(".search-input").blur(function () {
+    // Hide search results if focus lost
+
+    setTimeout(function(){
+        $(this).parent().parent().parent().parent().find(".search-dropdown").slideUp();
+    }, 100);
+    
+  });
+  $("form.search").submit(function (event) {
+    // Redirect to search page when search form is submitted  
+    $(this).find(".search-dropdown").slideUp();
+    window.location = ($('form.search').data('searchPage') ? $('form.search').data('searchPage') + '#' :
+      "https://www.ergon.com.au/designs/pages/search#") + $(this).find(".search-input").val() + '.111111' + ((gscope) ? '?gscope=' + gscope : '');
+    event.preventDefault();
+  });
+  $("form.main-search").submit(function (event) {
+    // Perform search when on search page itself - no redirect  
+    $(this).find(".search-dropdown").slideUp();
+    performSearch($(".header-search-input").val(), $("#header-search-options").val(), gscope);
+    event.preventDefault();
+  });
+});

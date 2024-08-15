@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)https://www.energyq.com.au/2016/fatigue-calculator -->
+<html lang="en-AU" manifest="https://www.ergon.com.au/_fatigue/_designs/offline/energyq.appcache" class=" js borderradius boxshadow csstransforms"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Fatigue Calculator - Energy Queensland</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="/__data/assets/js_file/0005/1015754/html5shiv.min.js?v=0.0.0"></script>
+    <![endif]-->
+
+
+    
+
+
+<link rel="stylesheet" href="./Fatigue Calculator - Energy Queensland_files/enq-fatigue-calculator.css">
+<link rel="stylesheet" href="./Fatigue Calculator - Energy Queensland_files/global.css">
+
+<style>
+  @media (min-width: 768px) {
+    body {
+      background-image: url(https://splash247.com/wp-content/uploads/2020/08/Hutchison-Ports-e1613456272220-780x470.jpg);
+    }
+  }
+</style>
+
+<script>
+  /* Global variables. */
+  var FATIGUE_GLOBALS = {
+    normal: {
+      range: {
+        min: 0,
+        max: 0
+      },
+      title: "Low",
+      message: "Good to go? Continue to monitor fatigue."
+    },
+    moderate: {
+      range: {
+        min: 1,
+        max: 7
+      },
+      title: "Moderate",
+      message: "Discuss with team & implement controls. Consider if high risk tasks should occur. Advise supervisor if appropriate."
+    },
+    high: {
+      range: {
+        min: 8,
+        max: 12
+      },
+      title: "High",
+      message: "Stop work. Discuss controls with team & supervisor. High risk tasks should not be performed."
+    },
+    extreme: {
+      range: {
+        min: 13,
+        max: undefined
+      },
+      title: "Extreme",
+      message: "Stop work or don\u2019t start. Discuss contingency with supervisor. Continuing work requires approval."
+    }
+  };
+</script>
+
+    <!--[if lt IE 9]>
+        <script src="/__data/assets/js_file/0007/1015756/respond.min.js?v=0.0.0"></script>
+    <![endif]-->
+
+
+<!--
+  Running Squiz Matrix
+  Developed by Squiz - http://www.squiz.net
+  Squiz, Squiz Matrix, MySource, MySource Matrix and Squiz.net are registered Trademarks of Squiz Pty Ltd
+  Page generated: 12 August 2024 13:27:07
+-->
+
+
+<style id="slider_sleep24_range">#sleep24_range::-webkit-slider-runnable-track {background-image: -webkit-gradient( linear, left top, right top,color-stop(0.2916666666666667, rgb(58, 130, 142)), color-stop(0.2916666666666667, transparent))}#sleep24_range::-moz-range-track {background-image: linear-gradient( to right,rgb(58, 130, 142) 29.166666666666668%, transparent 29.166666666666668%)}</style><style id="slider_sleep48_range">#sleep48_range::-webkit-slider-runnable-track {background-image: -webkit-gradient( linear, left top, right top,color-stop(0.2916666666666667, rgb(58, 130, 142)), color-stop(0.2916666666666667, transparent))}#sleep48_range::-moz-range-track {background-image: linear-gradient( to right,rgb(58, 130, 142) 29.166666666666668%, transparent 29.166666666666668%)}</style></head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PQ8JS3P"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->     <div id="slider-fill-colour" class="hide"></div>
+
+
+    <!-- EnergyQ header -->
+<div class="wrapper-header">
+	<div class="header">
+		<div class="logo" style="margin-left: 0px;">
+			<img src="./Fatigue Calculator - Energy Queensland_files/energy_queensland_website_logo_110x113.png" width="150" height="105" alt="EnergyQ">
+		</div>
+		<!-- <nav class="nav-top">
+			<ul>
+				<li><a href="https://www.energyq.com.au/">Home</a></li>
+				<li><a href="https://www.energyq.com.au/about-us" class="">About Us</a></li>
+				<li><a href="https://www.energyq.com.au/our-future" class="">Our Future</a></li>
+				<li><a href="https://www.energyq.com.au/our-governance" class="">Our Governance</a></li>
+				<li><a href="https://www.energyq.com.au/careers" class="">Careers</a></li>
+				<li><a href="https://www.energyq.com.au/contact-us" class="">Contact us</a></li>
+			</ul>
+		</nav> -->
+	</div>
+</div>    <div class="wrapper-calculator">
+        <div class="wrapper-intro">
+            <div class="container container-intro">
+
+
+                <h1>Fatigue calculator</h1>
+<p class="lead heading-font">The fatigue calculator is designed to help keep you safe. Find out your likelihood of being fatigued in three easy steps.</p>            </div>
+        </div>
+
+
+        <!-- #### Body area starts #### -->
+<form id="form" class="wrapper-form" action="https://www.energyq.com.au/2016/fatigue-calculator#results" method="GET">
+
+	<div class="container">
+
+		<h2>Your likelihood of fatigue</h2>
+
+		<fieldset>
+			<legend><span class="legend-inner">Sleep history: last 48 hours</span></legend>
+
+			<div class="form-question form-question-range">
+				<div class="form-question-label">
+					<label for="sleep24">How much sleep did you get before your shift?</label>
+				</div>
+				<div class="form-response form-response-text">
+					<input type="text" id="sleep24" name="sleep24" size="8" data-output-for="sleep24_range" class="form-control form-control-range-output">
+				</div>
+				<div class="form-response form-response-range">
+					<input type="range" class="form-control form-control-range" min="0" max="24" step="1" value="7" id="sleep24_range" name="sleep24_range" aria-label="Sleep in the 24 hours before starting work">
+				</div>
+			</div>
+			<div class="form-question form-question-range">
+				<div class="form-question-label">
+					<label for="sleep48">How much sleep did you get before the previous shift? e.g. the night before last</label>
+				</div>
+				<div class="form-response form-response-text">
+					<input type="text" id="sleep48" name="sleep48" size="8" data-output-for="sleep48_range" class="form-control form-control-range-output">
+				</div>
+				<div class="form-response form-response-range">
+					<input type="range" class="form-control form-control-range" min="0" max="24" step="1" value="7" id="sleep48_range" name="sleep48_range" aria-label="Sleep in the previous 24 hours">
+				</div>
+			</div>
+			<div class="panel panel-sleep-total">
+				<div class="panel-label">
+					<b>Total sleep in the last 48 hours</b>
+				</div>
+				<div class="panel-total">
+					<span class="equals">=</span>
+					<span id="sleep-48-total">14 hours</span>
+				</div>
+			</div>
+		</fieldset>
+		<fieldset>
+			<legend><span class="legend-inner"><label for="wake-time">Awoke today at</label></span></legend>
+			<div class="form-response form-response-select">
+				<select id="wake-time" name="wake-time" class="form-control form-control-select"><option value="1723431600000">13:00</option><option value="1723429800000">12:30</option><option value="1723428000000">12:00</option><option value="1723426200000">11:30</option><option value="1723424400000">11:00</option><option value="1723422600000">10:30</option><option value="1723420800000">10:00</option><option value="1723419000000">09:30</option><option value="1723417200000">09:00</option><option value="1723415400000">08:30</option><option value="1723413600000">08:00</option><option value="1723411800000">07:30</option><option value="1723410000000">07:00</option><option value="1723408200000">06:30</option><option value="1723406400000">06:00</option><option value="1723404600000">05:30</option><option value="1723402800000">05:00</option><option value="1723401000000">04:30</option><option value="1723399200000">04:00</option><option value="1723397400000">03:30</option><option value="1723395600000">03:00</option><option value="1723393800000">02:30</option><option value="1723392000000">02:00</option><option value="1723390200000">01:30</option><option value="1723388400000">01:00</option><option value="1723386600000">00:30</option><option value="1723384800000">00:00</option><option value="1723383000000">23:30 (Sun)</option><option value="1723381200000">23:00 (Sun)</option><option value="1723379400000">22:30 (Sun)</option><option value="1723377600000">22:00 (Sun)</option><option value="1723375800000">21:30 (Sun)</option><option value="1723374000000">21:00 (Sun)</option><option value="1723372200000">20:30 (Sun)</option><option value="1723370400000">20:00 (Sun)</option><option value="1723368600000">19:30 (Sun)</option><option value="1723366800000">19:00 (Sun)</option><option value="1723365000000">18:30 (Sun)</option><option value="1723363200000">18:00 (Sun)</option><option value="1723361400000">17:30 (Sun)</option><option value="1723359600000">17:00 (Sun)</option><option value="1723357800000">16:30 (Sun)</option><option value="1723356000000">16:00 (Sun)</option><option value="1723354200000">15:30 (Sun)</option><option value="1723352400000">15:00 (Sun)</option><option value="1723350600000">14:30 (Sun)</option><option value="1723348800000">14:00 (Sun)</option><option value="1723347000000">13:30 (Sun)</option></select>
+			</div>
+<!--
+			<div class="panel panel-hours-awake">
+				<div class="panel-label">
+					Hours of wakefulness
+				</div>
+				<div class="panel-total">
+					<span class="equals">=</span>
+					<span id="awake-total">0 hours</span>
+				</div>
+			</div>
+-->
+		</fieldset>
+
+		<div class="form-button form-button-forward">
+			<button type="submit" id="calculator-submit" class="form-control form-control-button btn btn-calculate">Calculate</button>
+		</div>
+
+	</div>
+</form>
+
+<div id="results" class="wrapper-results" style="display: none;">
+
+	<div class="container container-result-overview">
+		<h2>Your current likelihood of fatigue</h2>
+
+		<div class="result-overview">
+			<div class="result-overview-score">Fatigue score: <span class="result-score-number"></span></div>
+			<div class="result-overview-category"></div>
+			<div class="result-overview-description"></div>
+		</div>
+	</div>
+
+	<div class="container">
+		<h2>Your projected likelihood of fatigue</h2>
+
+		<div class="result-timeline-wrapper">
+			<ol class="result-timeline">
+				<li class="result-timeline-normal  " data-timespan="">
+					<time class="sr-only"></time>
+					<span class="result-timeline-category" title="Low">Low</span>
+				</li>
+				<li class="result-timeline-moderate" data-timespan="">
+					<time class="sr-only"></time>
+					<span class="result-timeline-category" title="Moderate">Moderate</span>
+				</li>
+				<li class="result-timeline-high    " data-timespan="">
+					<time class="sr-only"></time>
+					<span class="result-timeline-category" title="High">High</span>
+				</li>
+				<li class="result-timeline-extreme " data-timespan="">
+					<time class="sr-only"></time>
+					<span class="result-timeline-category" title="Extreme">Extreme</span>
+				</li>
+			</ol>
+			<ol class="result-timeline-hours" aria-hidden="true" role="presentation">
+				<!-- This is extraneous content hidden from screen readers (with `aria-hidden` and `role="presentation"`) because the information is better represented in a readable format in the above `.result-timeline` markup. -->
+				<li class="division"><time class="hour-tick"></time></li><!--
+				--><li><time class="hour-tick"></time></li><!--
+				--><li><time class="hour-tick"></time></li><!--
+				--><li><time class="hour-tick"></time></li><!--
+				--><li><time class="hour-tick"></time></li><!--
+				--><li><time class="hour-tick"></time></li><!--
+				--><li><time class="hour-tick"></time></li><!--
+				--><li class="division"><time class="hour-tick"></time></li><!--
+				--><li><time class="hour-tick"></time></li><!--
+				--><li><time class="hour-tick"></time></li><!--
+				--><li><time class="hour-tick"></time></li><!--
+				--><li><time class="hour-tick"></time></li><!--
+				--><li><time class="hour-tick"></time></li><!--
+				--><li><time class="hour-tick"></time></li><!--
+				--><li class="division"><time class="hour-tick"></time></li><!--
+				--><li><time class="hour-tick"></time></li><!--
+				--><li><time class="hour-tick"></time></li><!--
+				--><li><time class="hour-tick"></time></li><!--
+				--><li><time class="hour-tick"></time></li><!--
+				--><li class="division"><time class="hour-tick"></time></li><!--
+				--><li><time class="hour-tick"></time></li><!--
+				--><li><time class="hour-tick"></time></li><!--
+				--><li><time class="hour-tick"></time></li><!--
+				--><li class="division"><time class="hour-tick"></time></li>
+			</ol>
+		</div>
+
+		<div class="form-button form-button-back">
+			<a href="https://www.energyq.com.au/2016/fatigue-calculator#form" id="recalculate-button" class="form-control form-control-button btn btn-calculate">Re-calculate</a>
+		</div>
+
+	</div>
+</div><div class="container">
+  <div class="authored-content">
+    <p><strong>Important information</strong></p><table id="table61775"><thead><tr><th style="text-align: left;" id="table61775r1c1"> Fatigue&nbsp;level</th><th style="text-align: left;" id="table61775r1c2"> Action required</th></tr></thead><tbody><tr><td headers="table61775r1c1">
+         Low 
+      </td><td headers="table61775r1c2">
+         Good to go?&nbsp;Continue to monitor fatigue. 
+      </td></tr><tr><td headers="table61775r1c1">
+         Moderate 
+      </td><td headers="table61775r1c2">
+         Discuss with team/crew, decide on appropriate controls.&nbsp;Consider whether high risk tasks should occur. Advise Supervisor if appropriate. Controls may include self and peer monitoring, task rotation, increased breaks, pacing work load.  
+      </td></tr><tr><td headers="table61775r1c1">
+         High 
+      </td><td headers="table61775r1c2">
+         Stop Work. Discuss controls with crew/team and with Supervisor.&nbsp;High risk tasks&nbsp;should not be performed. Controls may include increased supervision, task re-assignment, buddy check, arrange back-up, transport alternatives may be required. 
+      </td></tr><tr><td headers="table61775r1c1">
+         Extreme 
+      </td><td headers="table61775r1c2">
+         Stop Work (or do not commence). Discuss contingency with supervisor. Controls are unlikely to be sufficient. Make arrangements to convey worker home. Continuing with any work requires approval. 
+      </td></tr></tbody></table><p>Questions about the calculator? <a href="mailto:laidlaw.tim@hutchisonports.com.au">Email us</a>.</p><hr><h3>Disclaimer</h3><p>The information and data contained on this page including but not limited to the fatigue calculator has been developed for Hutchison Ports employee purposes only and shouldn't be relied upon for any other purpose/s. No warranty or representation is made as to its accuracy or completeness.</p><br>
+  </div>
+</div><!-- #### Body area ends #### -->
+
+
+        <div class="container container-nav-footer">
+	<div class="nav-footer">
+		
+		<p>Copyright 2024 Hutchison Ports Australia. All rights reserved.</p>
+	</div>
+</div>    </div>.wrapper-calculator
+
+
+    
+<script src="./Fatigue Calculator - Energy Queensland_files/fatigue-calculator-combined.min.js.download"></script>
+<script src="./Fatigue Calculator - Energy Queensland_files/search-dropdown.js.download"></script>
+<script src="./Fatigue Calculator - Energy Queensland_files/global-nav.js.download"></script>
+    <script>
+        Modernizr.load([
+            {
+                // Test if Input Range is supported using Modernizr
+                test: Modernizr.inputtypes.range,
+                // If ranges are not supported, load the slider script and CSS file
+                nope: [
+                    // The slider JS file
+                    '/__data/assets/js_file/0004/1015753/fd-slider.min.js?v=0.0.0'
+                ],
+                callback: function(id, testResult) {
+                    // If the slider file has loaded then fire the onDomReady event
+                    if ("fdSlider" in window && typeof (fdSlider.onDomReady) !== "undefined") {
+                        try {
+                            fdSlider.onDomReady();
+                        }
+                        catch(err) {
+
+                        }
+                    }
+                }
+            }
+        ]);
+    </script>
+
+
+
+</body></html>
